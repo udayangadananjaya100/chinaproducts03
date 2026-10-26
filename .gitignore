@@ -1,0 +1,12 @@
+# Ignore large source Excel spreadsheets so repository stays under GitHub 100MB limit
+*.xlsx
+*.xls
+~$*.xlsx
+~$*.xls
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.vercel/

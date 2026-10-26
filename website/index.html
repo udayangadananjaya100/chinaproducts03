@@ -1,0 +1,2955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Jiayu 2026 Interactive Wholesale Product Catalogue — SL-WPI Edition</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --accent: #0d9488;
+      --danger: #dc2626;
+      --danger-soft: #fef2f2;
+      --mega-bg: #fef3c7;
+      --mega-text: #92400e;
+      --mega-border: #f59e0b;
+      --strong-bg: #dcfce7;
+      --strong-text: #166534;
+      --strong-border: #22c55e;
+      --niche-bg: #e0f2fe;
+      --niche-text: #075985;
+      --niche-border: #0ea5e9;
+      --low-bg: #fee2e2;
+      --low-text: #991b1b;
+      --low-border: #ef4444;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.16);
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Sinhala", "Sinhala Sangam MN", "Sinhala MN", "Nirmala UI", "Iskoola Pota", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+
+    /* Enforce minimum 44x44px touch targets on all interactive elements */
+    button,
+    select,
+    .qadd,
+    .qty-step,
+    .gal-nav,
+    .rm,
+    .x,
+    .chip,
+    .btn-touch {
+      min-width: 44px;
+      min-height: 44px;
+      cursor: pointer;
+      font-family: inherit;
+      touch-action: manipulation;
+    }
+
+    input, select, button {
+      font-family: inherit;
+    }
+
+    /* Header & Top Navigation */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .topbar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb, #0d9488);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ctrl-select {
+      height: 44px;
+      padding: 0 10px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .rates-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 44px;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .rates-pill-btn:hover {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+
+    .cart-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 44px;
+      padding: 0 14px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+      transition: background 0.15s;
+    }
+
+    .cart-trigger-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .cart-badge {
+      background: #fff;
+      color: var(--primary);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* Filter & Search Section */
+    .filters-wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 12px 16px 8px;
+    }
+
+    .filters-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 44px;
+      padding: 0 40px 0 38px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .search-box input:focus {
+      outline: 2px solid var(--primary);
+      border-color: transparent;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      color: var(--text-light);
+      pointer-events: none;
+      font-size: 16px;
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 2px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .price-filter-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 0 8px;
+      height: 44px;
+    }
+
+    .price-filter-group span {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .price-filter-group input {
+      width: 78px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0 6px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .view-toggle {
+      display: flex;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .view-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 0 12px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .view-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Category Bar Chips */
+    .cat-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 0 6px;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 14px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .chip:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .chip.chip-winner {
+      border-color: var(--mega-border);
+      background: #fffbeb;
+      color: var(--mega-text);
+    }
+
+    .chip.chip-winner.active {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      color: #fff;
+      border-color: #b45309;
+    }
+
+    .chip-count {
+      font-size: 11.5px;
+      opacity: 0.85;
+      background: rgba(15, 23, 42, 0.08);
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    .chip.active .chip-count {
+      background: rgba(255, 255, 255, 0.24);
+      color: #fff;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Main Container & Product Grid */
+    .main-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 16px 96px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .p-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .p-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+    }
+
+    .p-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .p-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+      transition: transform 0.25s ease;
+    }
+
+    .p-card:hover .p-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .p-code-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(15, 23, 42, 0.82);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .win-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      line-height: 1.2;
+    }
+
+    .p-img-wrap .win-badge {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .win-mega {
+      background: var(--mega-bg);
+      color: var(--mega-text);
+      border-color: var(--mega-border);
+    }
+
+    .win-strong {
+      background: var(--strong-bg);
+      color: var(--strong-text);
+      border-color: var(--strong-border);
+    }
+
+    .win-niche {
+      background: var(--niche-bg);
+      color: var(--niche-text);
+      border-color: var(--niche-border);
+    }
+
+    .win-low {
+      background: var(--low-bg);
+      color: var(--low-text);
+      border-color: var(--low-border);
+    }
+
+    .p-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .p-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.8em;
+      cursor: pointer;
+    }
+
+    .p-title:hover {
+      color: var(--primary);
+    }
+
+    .p-sub {
+      font-size: 11.5px;
+      color: var(--text-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .p-variant {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-alt);
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .p-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .p-specs span {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .p-foot {
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .p-price-wrap {
+      min-width: 0;
+    }
+
+    .p-price-main {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .p-price-ref {
+      font-size: 11.5px;
+      color: var(--text-light);
+    }
+
+    .qadd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 0 12px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .qadd:hover, .qadd.in-cart {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* List Table View */
+    .table-wrap {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-wrap.active {
+      display: block;
+    }
+
+    .prod-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .prod-table th, .prod-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .prod-table th {
+      background: var(--surface-alt);
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .prod-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    .tbl-thumb {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    /* Modals & Mobile Bottom Sheets */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(3px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 920px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.22s ease-out;
+    }
+
+    .modal-sheet.modal-sm {
+      max-width: 480px;
+    }
+
+    .sheet-handle {
+      width: 44px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--border-strong);
+      margin: 8px auto 2px;
+      display: none;
+      flex-shrink: 0;
+    }
+
+    .modal-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .x {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .x:hover {
+      background: var(--danger-soft);
+      color: var(--danger);
+      border-color: #fecaca;
+    }
+
+    .modal-body {
+      padding: 16px;
+      overflow-y: auto;
+      flex: 1;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Product Detail Modal Layout */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 20px;
+    }
+
+    .gallery-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gallery-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .gallery-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      cursor: zoom-in;
+      transition: transform 0.25s ease;
+    }
+
+    .gallery-stage img.zoomed {
+      transform: scale(1.65);
+      cursor: zoom-out;
+    }
+
+    .gal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      z-index: 5;
+    }
+
+    .gal-nav.prev { left: 8px; }
+    .gal-nav.next { right: 8px; }
+
+    .thumbs-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0;
+    }
+
+    .thumb-btn {
+      width: 56px;
+      height: 56px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      padding: 2px;
+      flex-shrink: 0;
+    }
+
+    .thumb-btn.active {
+      border-color: var(--primary);
+    }
+
+    .thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .detail-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .detail-price-box {
+      background: var(--primary-soft);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .detail-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .spec-item {
+      background: var(--surface-alt);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+    }
+
+    .spec-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .spec-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* SL-WPI 4-Pillar Breakdown Box */
+    .wpi-box {
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      background: #fcfcfd;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .wpi-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .wpi-reason {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .pillar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pillar-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    .pillar-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .pillar-bar-bg {
+      width: 100%;
+      height: 7px;
+      background: var(--surface-alt);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .pillar-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2563eb, #0d9488);
+    }
+
+    .pillar-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    /* Detail Sticky Bottom Action Bar */
+    .detail-sticky-bar {
+      padding: 12px 16px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .qty-stepper {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .qty-step {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-step:hover {
+      background: var(--border);
+    }
+
+    .qty-input {
+      width: 60px;
+      height: 44px;
+      border: none;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .btn-primary {
+      height: 44px;
+      padding: 0 18px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      height: 44px;
+      padding: 0 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-danger {
+      height: 44px;
+      padding: 0 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #fecaca;
+      background: var(--danger-soft);
+      color: var(--danger);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    /* Cart Sticky Summary & Items */
+    .cart-sticky-total {
+      padding: 12px 16px;
+      background: #f8fafc;
+      border-top: 2px solid var(--border-strong);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .cart-actions-bar {
+      padding: 12px 16px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .rm {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #fecaca;
+      background: var(--danger-soft);
+      color: var(--danger);
+      font-size: 16px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Floating Bottom Mobile Cart Bar */
+    .mobile-cart-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: var(--text);
+      color: #fff;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.25);
+    }
+
+    .mobile-cart-bar.visible {
+      display: flex;
+    }
+
+    /* Print Quotation Header (hidden on screen) */
+    .print-only-quote {
+      display: none;
+    }
+
+    /* Responsive & Mobile Ergonomics (<= 640px and 320px-480px) */
+    @media (max-width: 768px) {
+      .filters-row {
+        grid-template-columns: 1fr;
+      }
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      /* Prevent iOS Safari auto-zoom on focus: 16px on all inputs and selects */
+      input,
+      select,
+      .ctrl-select,
+      .search-box input,
+      .price-filter-group input,
+      .qty-input {
+        font-size: 16px !important;
+      }
+
+      /* 2-column mobile product card grid */
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .p-body {
+        padding: 9px;
+      }
+
+      .p-title {
+        font-size: 13px;
+        -webkit-line-clamp: 2;
+      }
+
+      .p-price-main {
+        font-size: 14.5px;
+      }
+
+      /* Convert modals (#detail, #cart, #ratesModal) into smooth Bottom Sheets */
+      .modal-backdrop {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal-sheet,
+      .modal-sheet.modal-sm {
+        max-width: 100%;
+        width: 100%;
+        max-height: 92vh;
+        border-radius: 18px 18px 0 0;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      .sheet-handle {
+        display: block;
+      }
+    }
+
+    /* Clean Print Stylesheet (@media print) */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .topbar,
+      .filters-wrap,
+      .main-container,
+      .mobile-cart-bar,
+      #detail,
+      #ratesModal,
+      .sheet-handle,
+      .modal-header .x,
+      .cart-actions-bar,
+      .rm,
+      .qty-step {
+        display: none !important;
+      }
+      #cart {
+        position: static !important;
+        display: block !important;
+        background: transparent !important;
+        padding: 0 !important;
+      }
+      #cart .modal-sheet {
+        max-width: 100% !important;
+        max-height: none !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      #cart .modal-body {
+        overflow: visible !important;
+      }
+      .print-only-quote {
+        display: block !important;
+        margin-bottom: 16px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">JY</div>
+        <div class="brand-text">
+          <h1 class="brand-title" id="appTitle">Jiayu 2026 Home Organization & Storage Wholesale Catalogue</h1>
+          <div class="brand-sub">
+            <span id="statBadge">508 Products</span>
+            <span>·</span>
+            <span id="slWpiSub">SL-WPI 100-Pt Sea Cargo Edition</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-controls">
+        <select id="lang" class="ctrl-select" aria-label="Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="si">🇱🇰 සිංහල (Sinhala)</option>
+          <option value="zh">🇨🇳 中文 (Chinese)</option>
+          <option value="es">🇪🇸 Español (Spanish)</option>
+        </select>
+
+        <select id="curr" class="ctrl-select" aria-label="Currency">
+          <option value="RMB">RMB (¥)</option>
+          <option value="USD">USD ($)</option>
+          <option value="LKR">LKR (රු.)</option>
+        </select>
+
+        <button type="button" id="ratesBtn" class="rates-pill-btn" title="Customize Exchange Rates">
+          <span>💱</span>
+          <span id="ratesPillText">1$ = ¥7.15 · ¥1 = රු.43.50</span>
+        </button>
+
+        <button type="button" id="cartBtn" class="cart-trigger-btn">
+          <span>🧾</span>
+          <span id="cartBtnLabel">Quotation</span>
+          <span id="cartCount" class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search, Price Filter, Sort & Category Chips -->
+  <section class="filters-wrap">
+    <div class="filters-row">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="q" placeholder="Search item code, name, Sinhala/Chinese/English keywords…" autocomplete="off">
+        <button type="button" id="clearSearch" class="search-clear x" aria-label="Clear search">✕</button>
+      </div>
+
+      <div class="price-filter-group">
+        <span id="priceFilterLabel">Price (¥):</span>
+        <input type="number" id="pmin" placeholder="Min" min="0" step="any">
+        <span>–</span>
+        <input type="number" id="pmax" placeholder="Max" min="0" step="any">
+      </div>
+
+      <select id="sort" class="ctrl-select" aria-label="Sort products">
+        <option value="win-desc" id="optWinDesc">🏆 Winning Score: High → Low</option>
+        <option value="win-asc" id="optWinAsc">Winning Score: Low → High</option>
+        <option value="price-asc" id="optPriceAsc">Price: Low → High</option>
+        <option value="price-desc" id="optPriceDesc">Price: High → Low</option>
+        <option value="cbm-asc" id="optCbmAsc">Volume (CBM): Low → High</option>
+        <option value="pcs-desc" id="optPcsDesc">Pcs/Carton: High → Low</option>
+        <option value="code-asc" id="optCodeAsc">Item Code: A → Z</option>
+      </select>
+
+      <div class="view-toggle">
+        <button type="button" id="viewGrid" class="view-btn active" aria-label="Grid View">⊞ <span id="lblGrid">Grid</span></button>
+        <button type="button" id="viewTable" class="view-btn" aria-label="Table View">☰ <span id="lblTable">List</span></button>
+      </div>
+    </div>
+
+    <div id="cats" class="cat-bar" role="tablist"></div>
+
+    <div class="status-bar">
+      <div id="showingStatus">Showing 508 products</div>
+      <div id="activeRateHint">Active Currency: RMB (¥)</div>
+    </div>
+  </section>
+
+  <!-- Main Catalogue View (Grid + Table) -->
+  <main class="main-container">
+    <div id="grid" class="product-grid"></div>
+
+    <div id="tableView" class="table-wrap">
+      <table class="prod-table">
+        <thead>
+          <tr>
+            <th id="thImg">Image</th>
+            <th id="thCode">Code</th>
+            <th id="thName">Product Name</th>
+            <th id="thVariant">Variant / Spec</th>
+            <th id="thWpi">SL-WPI Score</th>
+            <th id="thPrice">Unit Price</th>
+            <th id="thPcs">Pcs/Ctn</th>
+            <th id="thCbm">CBM (m³)</th>
+            <th id="thKg">G.W (kg)</th>
+            <th id="thBox">Carton (cm)</th>
+            <th id="thAction">Quote</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Floating Mobile Bottom Cart Bar -->
+  <div id="mobileCartBar" class="mobile-cart-bar">
+    <div>
+      <div style="font-weight: 800; font-size: 14px;" id="mCartSummaryTop">0 Cartons · 0 Pcs</div>
+      <div style="font-size: 12px; opacity: 0.85;" id="mCartSummarySub">0.000 m³ · Total: ¥0.00</div>
+    </div>
+    <button type="button" id="mOpenCartBtn" class="btn-primary">
+      <span id="mOpenCartLbl">View Quote</span> →
+    </button>
+  </div>
+
+  <!-- Product Detail Modal (#detail) -->
+  <div id="detail" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-sheet" id="detailSheet">
+      <div class="sheet-handle"></div>
+      <div class="modal-header">
+        <div>
+          <span id="dCode" style="font-weight: 800; color: var(--primary); font-size: 14px;">JY-A1001</span>
+          <span id="dCatBadge" style="margin-left: 8px; font-size: 12px; color: var(--text-muted);"></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <button type="button" id="dPrevProd" class="btn-secondary" title="Previous Product">◀</button>
+          <button type="button" id="dNextProd" class="btn-secondary" title="Next Product">▶</button>
+          <button type="button" id="closeDetail" class="x" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body" id="detailBody">
+        <div class="detail-grid">
+          <div class="gallery-col">
+            <div class="gallery-stage" id="dGalleryStage">
+              <button type="button" id="dPrevImg" class="gal-nav prev" aria-label="Previous Image">‹</button>
+              <img id="dImg" src="" alt="Product Image">
+              <button type="button" id="dNextImg" class="gal-nav next" aria-label="Next Image">›</button>
+            </div>
+            <div id="dThumbs" class="thumbs-row"></div>
+          </div>
+
+          <div class="detail-info-col">
+            <h2 id="dTitle" style="font-size: 18px; font-weight: 800; line-height: 1.3;"></h2>
+            <div id="dNamesMulti" style="font-size: 12.5px; color: var(--text-muted); display: flex; flex-direction: column; gap: 2px;"></div>
+            <div><span id="dVariant" class="p-variant" style="font-size: 13px;"></span></div>
+
+            <div class="detail-price-box">
+              <div>
+                <div style="font-size: 11.5px; color: var(--text-muted);" id="dUnitPriceLbl">Unit Price</div>
+                <div id="dUnitPrice" style="font-size: 22px; font-weight: 800; color: var(--primary);"></div>
+                <div id="dUnitPriceRef" style="font-size: 12px; color: var(--text-muted);"></div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 11.5px; color: var(--text-muted);" id="dCtnPriceLbl">Full Carton Price</div>
+                <div id="dCtnPrice" style="font-size: 17px; font-weight: 800; color: var(--text);"></div>
+                <div id="dCtnPriceRef" style="font-size: 12px; color: var(--text-muted);"></div>
+              </div>
+            </div>
+
+            <div class="detail-specs-grid">
+              <div class="spec-item">
+                <div class="spec-label" id="lblSpecPcs">Packing (Pcs/Carton)</div>
+                <div class="spec-val" id="dSpecPcs"></div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label" id="lblSpecCbm">Carton / Unit Volume</div>
+                <div class="spec-val" id="dSpecCbm"></div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label" id="lblSpecKg">Gross / Unit Weight</div>
+                <div class="spec-val" id="dSpecKg"></div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label" id="lblSpecBox">Carton Size (cm)</div>
+                <div class="spec-val" id="dSpecBox"></div>
+              </div>
+            </div>
+
+            <!-- 4-Pillar SL-WPI Visual Breakdown Box -->
+            <div id="dWinBox" class="wpi-box">
+              <div class="wpi-head">
+                <span style="font-weight: 800; font-size: 13.5px;" id="lblWpiTitle">🇱🇰 Sri Lanka Winning Product Index (SL-WPI)</span>
+                <span id="dWinBadge" class="win-badge win-mega"></span>
+              </div>
+              <div id="dWinReason" class="wpi-reason"></div>
+              <div id="dPillars" class="pillar-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Bottom Carton Stepper + Add to Quote Bar -->
+      <div class="detail-sticky-bar">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="qty-stepper">
+            <button type="button" id="dQtyMinus" class="qty-step" aria-label="Decrease cartons">−</button>
+            <input type="number" id="dQty" class="qty-input" value="1" min="1" step="1" aria-label="Cartons">
+            <button type="button" id="dQtyPlus" class="qty-step" aria-label="Increase cartons">+</button>
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <div id="dSubPcs" style="font-weight: 700; color: var(--text);"></div>
+            <div id="dSubTotal"></div>
+          </div>
+        </div>
+        <button type="button" id="dAddBtn" class="btn-primary" style="flex: 1; max-width: 240px;">
+          <span>＋</span> <span id="dAddBtnLbl">Add to Quote</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quotation Cart Modal (#cart) -->
+  <div id="cart" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-sheet" id="cartSheet">
+      <div class="sheet-handle"></div>
+      <div class="modal-header">
+        <h2 class="modal-title" id="cartModalTitle">🧾 Wholesale Quotation Builder</h2>
+        <button type="button" id="closeCart" class="x" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="print-only-quote">
+          <h2 id="printHeaderTitle">Jiayu 2026 Wholesale Quotation</h2>
+          <p id="printHeaderMeta" style="font-size: 13px; color: #333;"></p>
+        </div>
+        <div id="cartEmptyMsg" style="padding: 36px 16px; text-align: center; color: var(--text-muted);">
+          No products in your quotation yet. Click "+ Quote" on any product to add cartons.
+        </div>
+        <div id="cartTableWrap" style="overflow-x: auto;">
+          <table class="prod-table" id="cartTable">
+            <thead>
+              <tr>
+                <th id="cthCode">Code</th>
+                <th id="cthProduct">Product</th>
+                <th id="cthWpi">SL-WPI</th>
+                <th id="cthCartons">Cartons</th>
+                <th id="cthPcs">Total Pcs</th>
+                <th id="cthUnit">Unit Price</th>
+                <th id="cthTotal">Subtotal</th>
+                <th id="cthCbm">CBM</th>
+                <th id="cthKg">KG</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cartBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sticky Quotation Total Summary Bar above action buttons -->
+      <div id="cartStickyTotal" class="cart-sticky-total">
+        <div>
+          <div class="spec-label" id="lblTotCartons">Total Cartons / Pcs</div>
+          <div class="spec-val" id="totCartonsPcs">0 ctns (0 pcs)</div>
+        </div>
+        <div>
+          <div class="spec-label" id="lblTotCbmKg">Total Volume / Weight</div>
+          <div class="spec-val" id="totCbmKg">0.000 m³ · 0.00 kg</div>
+        </div>
+        <div>
+          <div class="spec-label" id="lblTotAmount">Estimated Total</div>
+          <div class="spec-val" id="totAmountMain" style="color: var(--primary); font-size: 16px;">¥0.00</div>
+          <div id="totAmountRef" style="font-size: 11.5px; color: var(--text-muted);"></div>
+        </div>
+      </div>
+
+      <div class="cart-actions-bar">
+        <button type="button" id="clearCartBtn" class="btn-danger">🗑️ <span id="lblClearQuote">Clear</span></button>
+        <button type="button" id="printQuoteBtn" class="btn-secondary">🖨️ <span id="lblPrintQuote">Print Quote</span></button>
+        <button type="button" id="exportCsvBtn" class="btn-primary">📥 <span id="lblExportCsv">Export CSV (Excel)</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exchange Rates Modal (#ratesModal) -->
+  <div id="ratesModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-sheet modal-sm" id="ratesSheet">
+      <div class="sheet-handle"></div>
+      <div class="modal-header">
+        <h2 class="modal-title" id="ratesModalTitle">💱 Currency & Exchange Rates</h2>
+        <button type="button" id="closeRates" class="x" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+        <p id="ratesDesc" style="font-size: 13px; color: var(--text-muted);">
+          Customize conversion rates for USD and Sri Lankan Rupee (LKR). Supports both period (7.15) and comma (7,15) decimals.
+        </p>
+
+        <div>
+          <label for="rateUsd" id="lblRateUsd" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px;">
+            1 USD ($) in RMB (¥) — Default: 7.15
+          </label>
+          <input type="text" id="rateUsd" inputmode="decimal" value="7.15" style="width: 100%; height: 44px; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 8px; font-size: 16px;">
+        </div>
+
+        <div>
+          <label for="rateLkr" id="lblRateLkr" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px;">
+            1 RMB (¥) in LKR (රු.) — Default: 43.50
+          </label>
+          <input type="text" id="rateLkr" inputmode="decimal" value="43.50" style="width: 100%; height: 44px; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 8px; font-size: 16px;">
+        </div>
+
+        <div id="ratesPreviewBox" style="background: var(--surface-alt); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 13px;"></div>
+      </div>
+      <div class="cart-actions-bar">
+        <button type="button" id="resetRatesBtn" class="btn-secondary">↺ <span id="lblResetRates">Reset Defaults</span></button>
+        <button type="button" id="saveRatesBtn" class="btn-primary">✓ <span id="lblSaveRates">Save Rates</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load extracted offline catalog dataset -->
+  <script src="data/products.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      // =========================================================================
+      // 1. COMPLETE 4-LANGUAGE I18N DICTIONARY (en, si, zh, es)
+      // =========================================================================
+      const I18N = {
+        en: {
+          searchPlaceholder: "Search item code, Sinhala/English/Chinese name, variant…",
+          priceLabel: "Price",
+          min: "Min",
+          max: "Max",
+          sortWinDesc: "🏆 Winning Score: High → Low",
+          sortWinAsc: "Winning Score: Low → High",
+          sortPriceAsc: "Price: Low → High",
+          sortPriceDesc: "Price: High → Low",
+          sortCbmAsc: "Volume (CBM): Low → High",
+          sortPcsDesc: "Pcs/Carton: High → Low",
+          sortCodeAsc: "Item Code: A → Z",
+          grid: "Grid",
+          list: "List",
+          allProducts: "All Products",
+          topWinners: "🏆 Top Winners (70+ pts)",
+          showing: "Showing",
+          of: "of",
+          productsWord: "products",
+          activeCurrency: "Active Currency",
+          quoteBtn: "Quotation",
+          addQuote: "+ Quote",
+          inQuote: "✓ In Quote",
+          addToQuoteModal: "Add to Quote",
+          updateQuoteModal: "Update Quote",
+          viewQuote: "View Quote",
+          unitPrice: "Unit Price",
+          ctnPrice: "Full Carton Price",
+          pcsPerCtn: "Packing (Pcs/Carton)",
+          cbmSpec: "Carton / Unit Volume",
+          kgSpec: "Gross / Unit Weight",
+          boxSpec: "Carton Size (cm)",
+          pcsUnit: "pcs/ctn",
+          pcsWord: "pcs",
+          cartonsWord: "ctns",
+          na: "N/A",
+          wpiTitle: "🇱🇰 Sri Lanka Winning Product Index (SL-WPI)",
+          tierMega: "🏆 Mega Winner",
+          tierStrong: "⭐ Strong Winner",
+          tierNiche: "⚖️ Niche Product",
+          tierLow: "⚠️ Low Feasibility",
+          pillarFreight: "1. Freight & Sea Cargo Efficiency",
+          pillarMargin: "2. Profit Margin & SL Retail Sweet Spot",
+          pillarDemand: "3. Local Consumer Demand & Viral Appeal",
+          pillarRisk: "4. Operational & COD Return Risk",
+          thImg: "Image",
+          thCode: "Code",
+          thName: "Product Name",
+          thVariant: "Variant / Spec",
+          thWpi: "SL-WPI Score",
+          thPrice: "Unit Price",
+          thPcs: "Pcs/Ctn",
+          thCbm: "CBM (m³)",
+          thKg: "G.W (kg)",
+          thBox: "Carton (cm)",
+          thAction: "Quote",
+          cartTitle: "🧾 Wholesale Quotation Builder",
+          cartEmpty: "No products in your quotation yet. Tap '+ Quote' on any product to add cartons.",
+          totCartonsLbl: "Total Cartons / Pcs",
+          totCbmKgLbl: "Total Volume / Weight",
+          totAmountLbl: "Estimated Total",
+          clearQuote: "Clear",
+          printQuote: "Print Quote",
+          exportCsv: "Export CSV (Excel)",
+          ratesTitle: "💱 Currency & Exchange Rates",
+          ratesDesc: "Customize conversion rates for USD and Sri Lankan Rupee (LKR). Supports period (7.15) and comma (7,15) decimals.",
+          rateUsdLbl: "1 USD ($) in RMB (¥) — Default: 7.15",
+          rateLkrLbl: "1 RMB (¥) in LKR (රු.) — Default: 43.50",
+          resetRates: "Reset Defaults",
+          saveRates: "Save Rates",
+          csvHeaders: [
+            "Item Code", "Category", "Product Name (Localized)", "Product Name (English)",
+            "Product Name (Chinese)", "Variant / Spec", "SL-WPI Score", "Win Rate", "Win Tier",
+            "Cartons", "Total Pcs", "Unit Price", "Unit Price (RMB)", "Total Amount",
+            "Total Amount (RMB)", "Total CBM (m3)", "Total Weight (kg)", "Box Size (cm)"
+          ]
+        },
+        si: {
+          searchPlaceholder: "භාණ්ඩ කේතය, සිංහල හෝ ඉංග්‍රීසි නම අනුව සොයන්න…",
+          priceLabel: "මිල",
+          min: "අවම",
+          max: "උපරිම",
+          sortWinDesc: "🏆 ජයග්‍රාහී ලකුණු: වැඩි → අඩු",
+          sortWinAsc: "ජයග්‍රාහී ලකුණු: අඩු → වැඩි",
+          sortPriceAsc: "මිල: අඩු → වැඩි",
+          sortPriceDesc: "මිල: වැඩි → අඩු",
+          sortCbmAsc: "පරිමාව (CBM): අඩු → වැඩි",
+          sortPcsDesc: "පෙට්ටියක කෑලි: වැඩි → අඩු",
+          sortCodeAsc: "භාණ්ඩ කේතය: A → Z",
+          grid: "කාඩ්පත්",
+          list: "ලැයිස්තුව",
+          allProducts: "සියලුම භාණ්ඩ",
+          topWinners: "🏆 සුපිරි ජයග්‍රාහී (ලකුණු 70+)",
+          showing: "පෙන්වන්නේ",
+          of: "න්",
+          productsWord: "භාණ්ඩ",
+          activeCurrency: "ක්‍රියාකාරී මුදල් ඒකකය",
+          quoteBtn: "මිල ගණන්",
+          addQuote: "+ එක් කරන්න",
+          inQuote: "✓ එක් කළා",
+          addToQuoteModal: "මිල ලැයිස්තුවට එක් කරන්න",
+          updateQuoteModal: "ප්‍රමාණය යාවත්කාලීන කරන්න",
+          viewQuote: "මිල ලැයිස්තුව බලන්න",
+          unitPrice: "ඒකක මිල (Unit Price)",
+          ctnPrice: "සම්පූර්ණ පෙට්ටියේ මිල",
+          pcsPerCtn: "පෙට්ටියක කෑලි ගණන",
+          cbmSpec: "පරිමාව (Carton / Unit CBM)",
+          kgSpec: "බර (Gross / Unit KG)",
+          boxSpec: "පෙට්ටියේ ප්‍රමාණය (cm)",
+          pcsUnit: "කෑලි/පෙට්ටියට",
+          pcsWord: "කෑලි",
+          cartonsWord: "පෙට්ටි",
+          na: "නොමැත",
+          wpiTitle: "🇱🇰 ශ්‍රී ලංකා ජයග්‍රාහී භාණ්ඩ දර්ශකය (SL-WPI)",
+          tierMega: "🏆 සුපිරි ජයග්‍රාහී භාණ්ඩය",
+          tierStrong: "⭐ ඉහළ විකුණුම් හැකියාවක් ඇති",
+          tierNiche: "⚖️ විශේෂිත වෙළඳපොළ භාණ්ඩය",
+          tierLow: "⚠️ අඩු යෝග්‍යතාවයක් ඇති",
+          pillarFreight: "1. මුහුදු ප්‍රවාහන සහ නැව් ගාස්තු කාර්යක්ෂමතාව",
+          pillarMargin: "2. ලාභ පරතරය සහ ශ්‍රී ලංකා සිල්ලර මිල යෝග්‍යතාව",
+          pillarDemand: "3. දේශීය පාරිභෝගික ඉල්ලුම සහ ජනප්‍රියතාව",
+          pillarRisk: "4. ප්‍රවාහන ආරක්ෂාව සහ COD අවදානම",
+          thImg: "රූපය",
+          thCode: "කේතය",
+          thName: "භාණ්ඩයේ නම",
+          thVariant: "වර්ගය / ප්‍රමාණය",
+          thWpi: "SL-WPI ලකුණු",
+          thPrice: "ඒකක මිල",
+          thPcs: "කෑලි/පෙට්ටිය",
+          thCbm: "පරිමාව (m³)",
+          thKg: "බර (kg)",
+          thBox: "පෙට්ටිය (cm)",
+          thAction: "මිල ගණන්",
+          cartTitle: "🧾 තොග මිල ගණන් සකසනය (Quotation)",
+          cartEmpty: "තවමත් භාණ්ඩ එක් කර නොමැත. ඕනෑම භාණ්ඩයක '+ එක් කරන්න' ඔබන්න.",
+          totCartonsLbl: "මුළු පෙට්ටි / කෑලි ගණන",
+          totCbmKgLbl: "මුළු පරිමාව / බර",
+          totAmountLbl: "මුළු වටිනාකම",
+          clearQuote: "මකන්න",
+          printQuote: "මුද්‍රණය කරන්න",
+          exportCsv: "CSV බාගන්න (Excel)",
+          ratesTitle: "💱 විනිමය අනුපාත සැකසුම්",
+          ratesDesc: "USD සහ ශ්‍රී ලංකා රුපියල් (LKR) විනිමය අනුපාත වෙනස් කරන්න. දශම සඳහා තිත (7.15) හෝ කොමාව (7,15) භාවිතා කළ හැක.",
+          rateUsdLbl: "1 USD ($) සඳහා RMB (¥) අගය — සම්මත: 7.15",
+          rateLkrLbl: "1 RMB (¥) සඳහා LKR (රු.) අගය — සම්මත: 43.50",
+          resetRates: "සම්මත අගයන්",
+          saveRates: "සුරකින්න",
+          csvHeaders: [
+            "භාණ්ඩ කේතය", "කාණ්ඩය", "භාණ්ඩයේ නම (සිංහල)", "Product Name (English)",
+            "Product Name (Chinese)", "ප්‍රමාණය / වර්ණය", "SL-WPI ලකුණු", "ජයග්‍රාහී ප්‍රතිශතය", "මට්ටම",
+            "පෙට්ටි ගණන", "මුළු කෑලි", "ඒකක මිල", "ඒකක මිල (RMB)", "මුළු මුදල",
+            "මුළු මුදල (RMB)", "මුළු පරිමාව (m3)", "මුළු බර (kg)", "පෙට්ටියේ ප්‍රමාණය (cm)"
+          ]
+        },
+        zh: {
+          searchPlaceholder: "搜索货号、中文/英文/僧伽罗语产品名称、规格…",
+          priceLabel: "单价",
+          min: "最低",
+          max: "最高",
+          sortWinDesc: "🏆 爆款指数：从高到低",
+          sortWinAsc: "爆款指数：从低到高",
+          sortPriceAsc: "单价：从低到高",
+          sortPriceDesc: "单价：从高到低",
+          sortCbmAsc: "体积 (CBM)：从低到高",
+          sortPcsDesc: "装箱数：从高到低",
+          sortCodeAsc: "货号：A → Z",
+          grid: "网格",
+          list: "列表",
+          allProducts: "全部产品",
+          topWinners: "🏆 优选爆款 (70分+)",
+          showing: "正在显示",
+          of: "/",
+          productsWord: "款产品",
+          activeCurrency: "当前币种",
+          quoteBtn: "报价单",
+          addQuote: "+ 加入报价",
+          inQuote: "✓ 已加报价",
+          addToQuoteModal: "加入报价单",
+          updateQuoteModal: "更新箱数",
+          viewQuote: "查看报价单",
+          unitPrice: "产品单价",
+          ctnPrice: "整箱总价",
+          pcsPerCtn: "装箱数量 (件/箱)",
+          cbmSpec: "外箱/单件体积",
+          kgSpec: "整箱/单件毛重",
+          boxSpec: "外箱尺寸 (cm)",
+          pcsUnit: "件/箱",
+          pcsWord: "件",
+          cartonsWord: "箱",
+          na: "待定",
+          wpiTitle: "🇱🇰 斯里兰卡海运爆款指数 (SL-WPI)",
+          tierMega: "🏆 超级爆款 (Mega)",
+          tierStrong: "⭐ 强力推荐 (Strong)",
+          tierNiche: "⚖️ 细分市场 (Niche)",
+          tierLow: "⚠️ 可行性低 (Low)",
+          pillarFreight: "1. 海运集装箱体积与运费效率",
+          pillarMargin: "2. 利润空间与斯里兰卡零售甜点区",
+          pillarDemand: "3. 当地消费者刚需与社媒爆款潜力",
+          pillarRisk: "4. 快递派送损耗与 COD 签收安全度",
+          thImg: "图片",
+          thCode: "货号",
+          thName: "产品名称",
+          thVariant: "规格 / 颜色",
+          thWpi: "爆款评分",
+          thPrice: "单价",
+          thPcs: "装箱数",
+          thCbm: "体积 (m³)",
+          thKg: "毛重 (kg)",
+          thBox: "箱规 (cm)",
+          thAction: "操作",
+          cartTitle: "🧾 批发采购报价单",
+          cartEmpty: "报价单暂无产品，请点击任意产品上的“+ 加入报价”添加箱数。",
+          totCartonsLbl: "总箱数 / 总件数",
+          totCbmKgLbl: "总体积 / 总毛重",
+          totAmountLbl: "报价总金额",
+          clearQuote: "清空",
+          printQuote: "打印报价单",
+          exportCsv: "导出 Excel (CSV)",
+          ratesTitle: "💱 货币与汇率设置",
+          ratesDesc: "自定义美元 (USD) 与斯里兰卡卢比 (LKR) 兑人民币汇率，支持小数点 (7.15) 或逗号 (7,15)。",
+          rateUsdLbl: "1 美元 ($) 兑人民币 (¥) — 默认: 7.15",
+          rateLkrLbl: "1 人民币 (¥) 兑卢比 (රු.) — 默认: 43.50",
+          resetRates: "恢复默认",
+          saveRates: "保存汇率",
+          csvHeaders: [
+            "货号", "分类", "产品名称(当前语言)", "英文名称",
+            "中文名称", "颜色/规格", "SL-WPI评分", "爆款率", "评级",
+            "箱数", "总件数", "单价", "单价(RMB)", "总金额",
+            "总金额(RMB)", "总体积(m3)", "总毛重(kg)", "箱规(cm)"
+          ]
+        },
+        es: {
+          searchPlaceholder: "Buscar por código, nombre, variante…",
+          priceLabel: "Precio",
+          min: "Mín",
+          max: "Máx",
+          sortWinDesc: "🏆 Puntuación Ganadora: Mayor → Menor",
+          sortWinAsc: "Puntuación Ganadora: Menor → Mayor",
+          sortPriceAsc: "Precio: Menor → Mayor",
+          sortPriceDesc: "Precio: Mayor → Menor",
+          sortCbmAsc: "Volumen (CBM): Menor → Mayor",
+          sortPcsDesc: "Uds/Caja: Mayor → Menor",
+          sortCodeAsc: "Código: A → Z",
+          grid: "Cuadrícula",
+          list: "Lista",
+          allProducts: "Todos los Productos",
+          topWinners: "🏆 Top Ganadores (70+ pts)",
+          showing: "Mostrando",
+          of: "de",
+          productsWord: "productos",
+          activeCurrency: "Moneda Activa",
+          quoteBtn: "Cotización",
+          addQuote: "+ Cotizar",
+          inQuote: "✓ En Cotización",
+          addToQuoteModal: "Añadir a Cotización",
+          updateQuoteModal: "Actualizar Cajas",
+          viewQuote: "Ver Cotización",
+          unitPrice: "Precio Unitario",
+          ctnPrice: "Precio por Caja",
+          pcsPerCtn: "Unidades por Caja",
+          cbmSpec: "Volumen Caja / Unidad",
+          kgSpec: "Peso Bruto / Unidad",
+          boxSpec: "Dimensiones Caja (cm)",
+          pcsUnit: "uds/caja",
+          pcsWord: "uds",
+          cartonsWord: "cajas",
+          na: "N/D",
+          wpiTitle: "🇱🇰 Índice de Producto Ganador Sri Lanka (SL-WPI)",
+          tierMega: "🏆 Mega Ganador",
+          tierStrong: "⭐ Fuerte Ganador",
+          tierNiche: "⚖️ Producto de Nicho",
+          tierLow: "⚠️ Baja Viabilidad",
+          pillarFreight: "1. Eficiencia de Flete Marítimo",
+          pillarMargin: "2. Margen Comercial y Precio Ideal",
+          pillarDemand: "3. Demanda Local y Atractivo Viral",
+          pillarRisk: "4. Riesgo Operativo y Entregas COD",
+          thImg: "Imagen",
+          thCode: "Código",
+          thName: "Producto",
+          thVariant: "Variante / Espec.",
+          thWpi: "SL-WPI",
+          thPrice: "Precio Unit.",
+          thPcs: "Uds/Caja",
+          thCbm: "CBM (m³)",
+          thKg: "Peso (kg)",
+          thBox: "Caja (cm)",
+          thAction: "Cotizar",
+          cartTitle: "🧾 Generador de Cotización Mayorista",
+          cartEmpty: "No hay productos en su cotización. Pulse '+ Cotizar' en cualquier artículo.",
+          totCartonsLbl: "Total Cajas / Unidades",
+          totCbmKgLbl: "Volumen / Peso Total",
+          totAmountLbl: "Importe Total Estimado",
+          clearQuote: "Vaciar",
+          printQuote: "Imprimir",
+          exportCsv: "Exportar CSV (Excel)",
+          ratesTitle: "💱 Moneda y Tipos de Cambio",
+          ratesDesc: "Personalice las tasas de cambio para USD y LKR. Admite punto (7.15) y coma (7,15).",
+          rateUsdLbl: "1 USD ($) en RMB (¥) — Predeterminado: 7.15",
+          rateLkrLbl: "1 RMB (¥) en LKR (රු.) — Predeterminado: 43.50",
+          resetRates: "Restablecer",
+          saveRates: "Guardar Tasas",
+          csvHeaders: [
+            "Código", "Categoría", "Nombre (Idioma Activo)", "Nombre (Inglés)",
+            "Nombre (Chino)", "Variante / Espec.", "Puntuación SL-WPI", "Tasa Éxito", "Nivel",
+            "Cajas", "Total Uds", "Precio Unit.", "Precio Unit. (RMB)", "Importe Total",
+            "Importe Total (RMB)", "CBM Total (m3)", "Peso Total (kg)", "Tamaño Caja (cm)"
+          ]
+        }
+      };
+
+      // =========================================================================
+      // 2. ZWJ-IMMUNE NORMALIZATION & MULTI-CURRENCY ENGINE
+      // =========================================================================
+      function norm(s) {
+        return String(s || "")
+          .replace(/[\u200B-\u200D\uFEFF]/g, "")
+          .toLowerCase()
+          .trim();
+      }
+      window.norm = norm;
+
+      const DEFAULT_RATES = { rmbPerUsd: 7.15, lkrPerRmb: 43.50 };
+      const STORAGE_KEYS = {
+        lang: "jy_catalog_lang_v1",
+        curr: "jy_catalog_curr_v1",
+        rates: "jy_catalog_rates_v1",
+        cart: "jy_catalog_cart_v1"
+      };
+
+      const catalog = window.CATALOG || { products: [], categories: [] };
+      const products = catalog.products || [];
+      const categories = catalog.categories || [];
+
+      // Precompute ZWJ-stripped search index haystack on every product
+      products.forEach(function (p) {
+        p._haystack = norm(
+          [
+            p.code, p.en, p.si, p.zh, p.es,
+            p.variant, p.variant_en, p.variant_si, p.variant_zh, p.variant_es,
+            p.category, p.box
+          ].join(" ")
+        );
+      });
+
+      let state = {
+        lang: localStorage.getItem(STORAGE_KEYS.lang) || "en",
+        curr: localStorage.getItem(STORAGE_KEYS.curr) || "RMB",
+        rates: loadSavedRates(),
+        cat: "all",
+        query: "",
+        pmin: "",
+        pmax: "",
+        sort: "win-desc",
+        view: "grid",
+        cart: loadSavedCart(),
+        filtered: [],
+        activeProdId: null,
+        activeImgIdx: 0
+      };
+
+      function loadSavedRates() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEYS.rates);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            const u = parseDecimalInput(parsed.rmbPerUsd, DEFAULT_RATES.rmbPerUsd);
+            const l = parseDecimalInput(parsed.lkrPerRmb, DEFAULT_RATES.lkrPerRmb);
+            if (u > 0 && l > 0) return { rmbPerUsd: u, lkrPerRmb: l };
+          }
+        } catch (e) {}
+        return { rmbPerUsd: DEFAULT_RATES.rmbPerUsd, lkrPerRmb: DEFAULT_RATES.lkrPerRmb };
+      }
+
+      function loadSavedCart() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEYS.cart);
+          if (raw) {
+            const obj = JSON.parse(raw);
+            if (obj && typeof obj === "object") return obj;
+          }
+        } catch (e) {}
+        return {};
+      }
+
+      function saveCart() {
+        try {
+          localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(state.cart));
+        } catch (e) {}
+      }
+
+      function parseDecimalInput(val, fallback) {
+        if (val === null || val === undefined) return fallback;
+        const cleaned = String(val).trim().replace(/,/g, ".");
+        const num = parseFloat(cleaned);
+        return (Number.isFinite(num) && num > 0) ? num : fallback;
+      }
+      window.parseDecimalInput = parseDecimalInput;
+
+      function convertFromRmb(rmbAmount, curr) {
+        const c = curr || state.curr;
+        const val = Number(rmbAmount) || 0;
+        if (c === "USD") return val / state.rates.rmbPerUsd;
+        if (c === "LKR") return val * state.rates.lkrPerRmb;
+        return val;
+      }
+      window.convertFromRmb = convertFromRmb;
+
+      function currSymbol(curr) {
+        const c = curr || state.curr;
+        if (c === "USD") return "$";
+        if (c === "LKR") return "රු.";
+        return "¥";
+      }
+
+      function formatPrice(rmbAmount, curr) {
+        const c = curr || state.curr;
+        const converted = convertFromRmb(rmbAmount, c);
+        if (c === "LKR") {
+          return "රු. " + converted.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+        if (c === "USD") {
+          return "$" + converted.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+        return "¥" + converted.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      window.formatPrice = formatPrice;
+
+      function formatRefPrice(rmbAmount) {
+        const val = Number(rmbAmount) || 0;
+        if (state.curr === "RMB") {
+          return formatPrice(val, "LKR") + " · " + formatPrice(val, "USD");
+        }
+        return "¥" + val.toFixed(2) + " RMB";
+      }
+
+      // =========================================================================
+      // 3. UI HELPERS & RENDERERS
+      // =========================================================================
+      function t(key) {
+        const dict = I18N[state.lang] || I18N.en;
+        return dict[key] !== undefined ? dict[key] : I18N.en[key];
+      }
+
+      function getProdName(p, lang) {
+        const l = lang || state.lang;
+        return p[l] || p.en || p.zh || "";
+      }
+
+      function getProdVariant(p, lang) {
+        const l = lang || state.lang;
+        return p["variant_" + l] || p.variant || "";
+      }
+
+      function getTierLabel(tier) {
+        if (tier === "mega") return t("tierMega");
+        if (tier === "strong") return t("tierStrong");
+        if (tier === "niche") return t("tierNiche");
+        return t("tierLow");
+      }
+
+      function getCatName(catId) {
+        const found = categories.find(function (c) { return c.id === catId; });
+        if (!found) return catId;
+        return found[state.lang] || found.en;
+      }
+
+      function updateRatesPill() {
+        const pill = document.getElementById("ratesPillText");
+        if (pill) {
+          pill.textContent = "1$ = ¥" + state.rates.rmbPerUsd.toFixed(2) + " · ¥1 = රු." + state.rates.lkrPerRmb.toFixed(2);
+        }
+      }
+
+      function applyStaticTranslations() {
+        document.documentElement.lang = state.lang;
+        const titleMap = catalog.title || {};
+        document.getElementById("appTitle").textContent = titleMap[state.lang] || titleMap.en || "Product Catalogue";
+        document.getElementById("statBadge").textContent = products.length + " " + t("productsWord");
+        document.getElementById("q").placeholder = t("searchPlaceholder");
+        document.getElementById("priceFilterLabel").textContent = t("priceLabel") + " (" + currSymbol() + "):";
+        document.getElementById("pmin").placeholder = t("min");
+        document.getElementById("pmax").placeholder = t("max");
+
+        document.getElementById("optWinDesc").textContent = t("sortWinDesc");
+        document.getElementById("optWinAsc").textContent = t("sortWinAsc");
+        document.getElementById("optPriceAsc").textContent = t("sortPriceAsc");
+        document.getElementById("optPriceDesc").textContent = t("sortPriceDesc");
+        document.getElementById("optCbmAsc").textContent = t("sortCbmAsc");
+        document.getElementById("optPcsDesc").textContent = t("sortPcsDesc");
+        document.getElementById("optCodeAsc").textContent = t("sortCodeAsc");
+
+        document.getElementById("lblGrid").textContent = t("grid");
+        document.getElementById("lblTable").textContent = t("list");
+        document.getElementById("cartBtnLabel").textContent = t("quoteBtn");
+        document.getElementById("mOpenCartLbl").textContent = t("viewQuote");
+
+        document.getElementById("thImg").textContent = t("thImg");
+        document.getElementById("thCode").textContent = t("thCode");
+        document.getElementById("thName").textContent = t("thName");
+        document.getElementById("thVariant").textContent = t("thVariant");
+        document.getElementById("thWpi").textContent = t("thWpi");
+        document.getElementById("thPrice").textContent = t("thPrice");
+        document.getElementById("thPcs").textContent = t("thPcs");
+        document.getElementById("thCbm").textContent = t("thCbm");
+        document.getElementById("thKg").textContent = t("thKg");
+        document.getElementById("thBox").textContent = t("thBox");
+        document.getElementById("thAction").textContent = t("thAction");
+
+        document.getElementById("cartModalTitle").textContent = t("cartTitle");
+        document.getElementById("cartEmptyMsg").textContent = t("cartEmpty");
+        document.getElementById("lblTotCartons").textContent = t("totCartonsLbl");
+        document.getElementById("lblTotCbmKg").textContent = t("totCbmKgLbl");
+        document.getElementById("lblTotAmount").textContent = t("totAmountLbl");
+        document.getElementById("lblClearQuote").textContent = t("clearQuote");
+        document.getElementById("lblPrintQuote").textContent = t("printQuote");
+        document.getElementById("lblExportCsv").textContent = t("exportCsv");
+
+        document.getElementById("ratesModalTitle").textContent = t("ratesTitle");
+        document.getElementById("ratesDesc").textContent = t("ratesDesc");
+        document.getElementById("lblRateUsd").textContent = t("rateUsdLbl");
+        document.getElementById("lblRateLkr").textContent = t("rateLkrLbl");
+        document.getElementById("lblResetRates").textContent = t("resetRates");
+        document.getElementById("lblSaveRates").textContent = t("saveRates");
+
+        updateRatesPill();
+      }
+
+      function renderCategories() {
+        const wrap = document.getElementById("cats");
+        const topCount = products.filter(function (p) { return p.winScore >= 70; }).length;
+
+        let html = "";
+        html += '<button type="button" class="chip ' + (state.cat === "all" ? "active" : "") + '" data-cat="all">' +
+          '<span>🌐 ' + t("allProducts") + '</span><span class="chip-count">' + products.length + '</span></button>';
+
+        html += '<button type="button" class="chip chip-winner ' + (state.cat === "top-winners" ? "active" : "") + '" data-cat="top-winners">' +
+          '<span>' + t("topWinners") + '</span><span class="chip-count">' + topCount + '</span></button>';
+
+        categories.forEach(function (c) {
+          const isAct = state.cat === c.id ? "active" : "";
+          const label = c[state.lang] || c.en;
+          html += '<button type="button" class="chip ' + isAct + '" data-cat="' + c.id + '">' +
+            '<span>' + c.icon + " " + label + '</span><span class="chip-count">' + c.count + '</span></button>';
+        });
+
+        wrap.innerHTML = html;
+      }
+
+      function filterAndSortProducts() {
+        const qNorm = norm(state.query);
+        const minVal = state.pmin !== "" ? parseFloat(state.pmin) : null;
+        const maxVal = state.pmax !== "" ? parseFloat(state.pmax) : null;
+
+        let list = products.filter(function (p) {
+          if (state.cat === "top-winners") {
+            if (p.winScore < 70) return false;
+          } else if (state.cat !== "all" && p.category !== state.cat) {
+            return false;
+          }
+
+          if (qNorm && p._haystack.indexOf(qNorm) === -1) {
+            return false;
+          }
+
+          const activePrice = convertFromRmb(p.price, state.curr);
+          if (minVal !== null && Number.isFinite(minVal) && activePrice < minVal) {
+            return false;
+          }
+          if (maxVal !== null && Number.isFinite(maxVal) && activePrice > maxVal) {
+            return false;
+          }
+          return true;
+        });
+
+        const s = state.sort;
+        list.sort(function (a, b) {
+          if (s === "win-desc") return (b.winScore - a.winScore) || (a.price - b.price);
+          if (s === "win-asc") return (a.winScore - b.winScore) || (a.price - b.price);
+          if (s === "price-asc") return convertFromRmb(a.price) - convertFromRmb(b.price);
+          if (s === "price-desc") return convertFromRmb(b.price) - convertFromRmb(a.price);
+          if (s === "cbm-asc") return (a.cbm || 0) - (b.cbm || 0);
+          if (s === "pcs-desc") return (b.pcsPerCarton || 0) - (a.pcsPerCarton || 0);
+          return String(a.code).localeCompare(String(b.code));
+        });
+
+        state.filtered = list;
+      }
+
+      function renderCatalogue() {
+        filterAndSortProducts();
+        const list = state.filtered;
+
+        document.getElementById("showingStatus").textContent =
+          t("showing") + " " + list.length + " " + t("of") + " " + products.length + " " + t("productsWord");
+        document.getElementById("activeRateHint").textContent =
+          t("activeCurrency") + ": " + state.curr + " (" + currSymbol() + ")";
+
+        const gridEl = document.getElementById("grid");
+        const tableWrapEl = document.getElementById("tableView");
+        const tableBodyEl = document.getElementById("tableBody");
+
+        if (state.view === "grid") {
+          gridEl.style.display = "grid";
+          tableWrapEl.classList.remove("active");
+          let gHtml = "";
+          for (let i = 0; i < list.length; i++) {
+            const p = list[i];
+            const inCartQty = state.cart[p.id] || 0;
+            const pName = getProdName(p);
+            const subName = state.lang === "zh" ? p.en : p.zh;
+            const pVar = getProdVariant(p);
+            const kgText = (p.kg !== null && p.kg !== undefined) ? (p.kg + " kg") : t("na");
+
+            gHtml += '<article class="p-card" data-id="' + p.id + '">' +
+              '<div class="p-img-wrap" data-open="' + p.id + '">' +
+                '<img src="' + p.img + '" alt="' + escapeHtml(p.code) + '" loading="lazy">' +
+                '<span class="p-code-badge">' + escapeHtml(p.code) + '</span>' +
+                '<div class="win-badge win-' + p.winTier + '">' +
+                  '<span>' + getTierLabel(p.winTier) + '</span>' +
+                  '<span>' + p.winScore + ' pts (' + p.winRate + ')</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="p-body">' +
+                '<h3 class="p-title" data-open="' + p.id + '" title="' + escapeHtml(pName) + '">' + escapeHtml(pName) + '</h3>' +
+                '<div class="p-sub">' + escapeHtml(subName) + '</div>' +
+                '<div class="p-variant" title="' + escapeHtml(pVar) + '">' + escapeHtml(pVar) + '</div>' +
+                '<div class="p-specs">' +
+                  '<span>📦 ' + p.pcsPerCarton + ' ' + t("pcsUnit") + '</span>' +
+                  '<span>📐 ' + p.cbm + ' m³</span>' +
+                  '<span>⚖️ ' + kgText + '</span>' +
+                '</div>' +
+                '<div class="p-foot">' +
+                  '<div class="p-price-wrap">' +
+                    '<div class="p-price-main">' + formatPrice(p.price) + '</div>' +
+                    '<div class="p-price-ref">' + formatRefPrice(p.price) + '</div>' +
+                  '</div>' +
+                  '<button type="button" class="qadd ' + (inCartQty > 0 ? "in-cart" : "") + '" data-qadd="' + p.id + '">' +
+                    (inCartQty > 0 ? (t("inQuote") + " (" + inCartQty + ")") : t("addQuote")) +
+                  '</button>' +
+                '</div>' +
+              '</div>' +
+            '</article>';
+          }
+          gridEl.innerHTML = gHtml;
+        } else {
+          gridEl.style.display = "none";
+          tableWrapEl.classList.add("active");
+          let tHtml = "";
+          for (let i = 0; i < list.length; i++) {
+            const p = list[i];
+            const inCartQty = state.cart[p.id] || 0;
+            const pName = getProdName(p);
+            const pVar = getProdVariant(p);
+            const kgText = (p.kg !== null && p.kg !== undefined) ? (p.kg + " kg") : t("na");
+
+            tHtml += '<tr data-id="' + p.id + '">' +
+              '<td><img class="tbl-thumb" src="' + p.img + '" alt="' + escapeHtml(p.code) + '" data-open="' + p.id + '" loading="lazy"></td>' +
+              '<td style="font-weight:700; white-space:nowrap; cursor:pointer;" data-open="' + p.id + '">' + escapeHtml(p.code) + '</td>' +
+              '<td style="cursor:pointer;" data-open="' + p.id + '">' +
+                '<div style="font-weight:700;">' + escapeHtml(pName) + '</div>' +
+                '<div style="font-size:11.5px; color:var(--text-light);">' + escapeHtml(p.zh) + ' · ' + escapeHtml(p.en) + '</div>' +
+              '</td>' +
+              '<td><span class="p-variant">' + escapeHtml(pVar) + '</span></td>' +
+              '<td><span class="win-badge win-' + p.winTier + '">' + p.winScore + ' pts · ' + getTierLabel(p.winTier) + '</span></td>' +
+              '<td style="white-space:nowrap;">' +
+                '<div style="font-weight:800; color:var(--primary);">' + formatPrice(p.price) + '</div>' +
+                '<div style="font-size:11.5px; color:var(--text-light);">' + formatRefPrice(p.price) + '</div>' +
+              '</td>' +
+              '<td>' + p.pcsPerCarton + '</td>' +
+              '<td>' + p.cbm + '</td>' +
+              '<td>' + kgText + '</td>' +
+              '<td>' + escapeHtml(p.box || t("na")) + '</td>' +
+              '<td><button type="button" class="qadd ' + (inCartQty > 0 ? "in-cart" : "") + '" data-qadd="' + p.id + '">' +
+                (inCartQty > 0 ? (t("inQuote") + " (" + inCartQty + ")") : t("addQuote")) +
+              '</button></td>' +
+            '</tr>';
+          }
+          tableBodyEl.innerHTML = tHtml;
+        }
+      }
+
+      // =========================================================================
+      // 4. PRODUCT DETAIL MODAL, GALLERY & 4-PILLAR SL-WPI BREAKDOWN
+      // =========================================================================
+      function openDetailModal(prodId) {
+        const p = products.find(function (x) { return x.id === Number(prodId); });
+        if (!p) return;
+        state.activeProdId = p.id;
+        state.activeImgIdx = 0;
+
+        document.getElementById("dCode").textContent = p.code;
+        document.getElementById("dCatBadge").textContent = getCatName(p.category);
+        document.getElementById("dTitle").textContent = getProdName(p);
+
+        const multiEl = document.getElementById("dNamesMulti");
+        multiEl.innerHTML =
+          '<div><strong>🇱🇰 සිංහල:</strong> ' + escapeHtml(p.si) + '</div>' +
+          '<div><strong>🇬🇧 EN:</strong> ' + escapeHtml(p.en) + '</div>' +
+          '<div><strong>🇨🇳 中文:</strong> ' + escapeHtml(p.zh) + ' · <strong>🇪🇸 ES:</strong> ' + escapeHtml(p.es) + '</div>';
+
+        document.getElementById("dVariant").textContent = getProdVariant(p);
+
+        document.getElementById("dUnitPriceLbl").textContent = t("unitPrice");
+        document.getElementById("dUnitPrice").textContent = formatPrice(p.price);
+        document.getElementById("dUnitPriceRef").textContent = formatRefPrice(p.price);
+
+        const ctnRmb = p.price * p.pcsPerCarton;
+        document.getElementById("dCtnPriceLbl").textContent = t("ctnPrice") + " (" + p.pcsPerCarton + " " + t("pcsWord") + ")";
+        document.getElementById("dCtnPrice").textContent = formatPrice(ctnRmb);
+        document.getElementById("dCtnPriceRef").textContent = formatRefPrice(ctnRmb);
+
+        document.getElementById("lblSpecPcs").textContent = t("pcsPerCtn");
+        document.getElementById("dSpecPcs").textContent = p.pcsPerCarton + " " + t("pcsUnit");
+
+        const unitCbm = (p.cbm / Math.max(1, p.pcsPerCarton)).toFixed(4);
+        document.getElementById("lblSpecCbm").textContent = t("cbmSpec");
+        document.getElementById("dSpecCbm").textContent = p.cbm + " m³ (" + unitCbm + " m³/pc)";
+
+        document.getElementById("lblSpecKg").textContent = t("kgSpec");
+        if (p.kg !== null && p.kg !== undefined) {
+          const unitKg = (p.kg / Math.max(1, p.pcsPerCarton)).toFixed(2);
+          document.getElementById("dSpecKg").textContent = p.kg + " kg (" + unitKg + " kg/pc)";
+        } else {
+          document.getElementById("dSpecKg").textContent = t("na");
+        }
+
+        document.getElementById("lblSpecBox").textContent = t("boxSpec");
+        document.getElementById("dSpecBox").textContent = p.box || t("na");
+
+        // Render 4-Pillar SL-WPI Visual Progress-Bar Breakdown
+        document.getElementById("lblWpiTitle").textContent = t("wpiTitle");
+        const badgeEl = document.getElementById("dWinBadge");
+        badgeEl.className = "win-badge win-" + p.winTier;
+        badgeEl.textContent = getTierLabel(p.winTier) + " · " + p.winScore + "/100 (" + p.winRate + ")";
+
+        const reasonObj = p.winReason || {};
+        document.getElementById("dWinReason").textContent = reasonObj[state.lang] || reasonObj.en || "";
+
+        const bd = p.winBreakdown || {};
+        const pillarDefs = [
+          { key: "freight", label: t("pillarFreight") },
+          { key: "margin", label: t("pillarMargin") },
+          { key: "demand", label: t("pillarDemand") },
+          { key: "risk", label: t("pillarRisk") }
+        ];
+        let pHtml = "";
+        pillarDefs.forEach(function (pd) {
+          const item = bd[pd.key] || { score: 0, max: 25, desc: {} };
+          const pct = Math.min(100, Math.max(0, Math.round((item.score / (item.max || 25)) * 100)));
+          const descTxt = (item.desc && (item.desc[state.lang] || item.desc.en)) || "";
+          pHtml += '<div class="pillar-item">' +
+            '<div class="pillar-top">' +
+              '<span>' + escapeHtml(pd.label) + '</span>' +
+              '<span>' + item.score + ' / ' + (item.max || 25) + ' pts</span>' +
+            '</div>' +
+            '<div class="pillar-bar-bg"><div class="pillar-bar-fill" style="width:' + pct + '%;"></div></div>' +
+            '<div class="pillar-desc">' + escapeHtml(descTxt) + '</div>' +
+          '</div>';
+        });
+        document.getElementById("dPillars").innerHTML = pHtml;
+
+        // Gallery images
+        renderDetailGallery(p);
+
+        // Stepper & Qty
+        const curCartons = state.cart[p.id] || 1;
+        document.getElementById("dQty").value = curCartons;
+        document.getElementById("dAddBtnLbl").textContent = state.cart[p.id] ? t("updateQuoteModal") : t("addToQuoteModal");
+        updateDetailSubtotalPreview(p, curCartons);
+
+        document.getElementById("detail").classList.add("open");
+      }
+      window.openDetailModal = openDetailModal;
+
+      function renderDetailGallery(p) {
+        const imgs = (p.images && p.images.length) ? p.images : [p.imgLarge || p.img];
+        const thumbs = (p.thumbs && p.thumbs.length) ? p.thumbs : [p.img];
+        const idx = Math.max(0, Math.min(imgs.length - 1, state.activeImgIdx));
+        state.activeImgIdx = idx;
+
+        const dImg = document.getElementById("dImg");
+        dImg.classList.remove("zoomed");
+        dImg.src = imgs[idx];
+
+        const thumbsEl = document.getElementById("dThumbs");
+        let thHtml = "";
+        for (let i = 0; i < imgs.length; i++) {
+          thHtml += '<button type="button" class="thumb-btn ' + (i === idx ? "active" : "") + '" data-gidx="' + i + '">' +
+            '<img src="' + (thumbs[i] || imgs[i]) + '" alt="Thumbnail ' + (i + 1) + '">' +
+          '</button>';
+        }
+        thumbsEl.innerHTML = thHtml;
+      }
+
+      function updateDetailSubtotalPreview(p, cartons) {
+        const c = Math.max(1, parseInt(cartons, 10) || 1);
+        const totPcs = c * p.pcsPerCarton;
+        const totRmb = totPcs * p.price;
+        document.getElementById("dSubPcs").textContent = c + " " + t("cartonsWord") + " = " + totPcs + " " + t("pcsWord");
+        document.getElementById("dSubTotal").textContent = formatPrice(totRmb);
+      }
+
+      function navigateDetailProduct(delta) {
+        const list = state.filtered.length ? state.filtered : products;
+        if (!list.length || !state.activeProdId) return;
+        const curIdx = list.findIndex(function (x) { return x.id === state.activeProdId; });
+        const nextIdx = (curIdx + delta + list.length) % list.length;
+        openDetailModal(list[nextIdx].id);
+      }
+
+      // =========================================================================
+      // 5. QUOTATION CART, TOTALS, PRINT & CSV EXPORT
+      // =========================================================================
+      function computeCartTotals() {
+        let totalCartons = 0;
+        let totalPcs = 0;
+        let totalRmb = 0;
+        let totalCbm = 0;
+        let totalKg = 0;
+        let lines = [];
+
+        Object.keys(state.cart).forEach(function (idStr) {
+          const ctns = parseInt(state.cart[idStr], 10) || 0;
+          if (ctns <= 0) return;
+          const p = products.find(function (x) { return x.id === Number(idStr); });
+          if (!p) return;
+
+          const pcs = ctns * p.pcsPerCarton;
+          const lineRmb = pcs * p.price;
+          const lineCbm = ctns * (Number(p.cbm) || 0);
+          // Safely handle null weight values without NaN
+          const hasKg = (p.kg !== null && p.kg !== undefined && Number.isFinite(Number(p.kg)));
+          const lineKg = hasKg ? (ctns * Number(p.kg)) : 0;
+
+          totalCartons += ctns;
+          totalPcs += pcs;
+          totalRmb += lineRmb;
+          totalCbm += lineCbm;
+          totalKg += lineKg;
+
+          lines.push({
+            p: p,
+            cartons: ctns,
+            pcs: pcs,
+            lineRmb: lineRmb,
+            lineCbm: lineCbm,
+            lineKg: hasKg ? lineKg : null
+          });
+        });
+
+        return {
+          lines: lines,
+          totalCartons: totalCartons,
+          totalPcs: totalPcs,
+          totalRmb: totalRmb,
+          totalActive: convertFromRmb(totalRmb, state.curr),
+          totalCbm: totalCbm,
+          totalKg: totalKg
+        };
+      }
+      window.computeCartTotals = computeCartTotals;
+
+      function updateCartBadgesAndBar() {
+        const totals = computeCartTotals();
+        document.getElementById("cartCount").textContent = totals.lines.length;
+
+        const mBar = document.getElementById("mobileCartBar");
+        if (totals.totalCartons > 0) {
+          mBar.classList.add("visible");
+          document.getElementById("mCartSummaryTop").textContent =
+            totals.totalCartons + " " + t("cartonsWord") + " · " + totals.totalPcs + " " + t("pcsWord");
+          document.getElementById("mCartSummarySub").textContent =
+            totals.totalCbm.toFixed(3) + " m³ · " + formatPrice(totals.totalRmb);
+        } else {
+          mBar.classList.remove("visible");
+        }
+
+        document.getElementById("totCartonsPcs").textContent =
+          totals.totalCartons + " " + t("cartonsWord") + " (" + totals.totalPcs + " " + t("pcsWord") + ")";
+        document.getElementById("totCbmKg").textContent =
+          totals.totalCbm.toFixed(3) + " m³ · " + totals.totalKg.toFixed(2) + " kg";
+        document.getElementById("totAmountMain").textContent = formatPrice(totals.totalRmb);
+        document.getElementById("totAmountRef").textContent = formatRefPrice(totals.totalRmb);
+      }
+
+      function renderCartModal() {
+        const totals = computeCartTotals();
+        const emptyEl = document.getElementById("cartEmptyMsg");
+        const tableWrap = document.getElementById("cartTableWrap");
+        const tbody = document.getElementById("cartBody");
+
+        document.getElementById("printHeaderMeta").textContent =
+          "Date: " + new Date().toISOString().slice(0, 10) +
+          " | Currency: " + state.curr +
+          " | 1 USD = ¥" + state.rates.rmbPerUsd.toFixed(2) +
+          " | 1 RMB = රු." + state.rates.lkrPerRmb.toFixed(2);
+
+        if (!totals.lines.length) {
+          emptyEl.style.display = "block";
+          tableWrap.style.display = "none";
+          tbody.innerHTML = "";
+        } else {
+          emptyEl.style.display = "none";
+          tableWrap.style.display = "block";
+          let html = "";
+          totals.lines.forEach(function (item) {
+            const p = item.p;
+            const kgCell = item.lineKg !== null ? (item.lineKg.toFixed(2) + " kg") : t("na");
+            html += '<tr>' +
+              '<td style="font-weight:700; white-space:nowrap;">' + escapeHtml(p.code) + '</td>' +
+              '<td>' +
+                '<div style="font-weight:700;">' + escapeHtml(getProdName(p)) + '</div>' +
+                '<div style="font-size:11.5px; color:var(--text-muted);">' + escapeHtml(getProdVariant(p)) + '</div>' +
+              '</td>' +
+              '<td><span class="win-badge win-' + p.winTier + '">' + p.winScore + ' (' + p.winRate + ')</span></td>' +
+              '<td>' +
+                '<div class="qty-stepper">' +
+                  '<button type="button" class="qty-step" data-cstep="-1" data-cid="' + p.id + '">−</button>' +
+                  '<input type="number" class="qty-input" data-cinput="' + p.id + '" value="' + item.cartons + '" min="1">' +
+                  '<button type="button" class="qty-step" data-cstep="1" data-cid="' + p.id + '">+</button>' +
+                '</div>' +
+              '</td>' +
+              '<td>' + item.pcs + '</td>' +
+              '<td style="white-space:nowrap;">' +
+                '<div style="font-weight:700;">' + formatPrice(p.price) + '</div>' +
+                '<div style="font-size:11px; color:var(--text-light);">¥' + p.price.toFixed(2) + '</div>' +
+              '</td>' +
+              '<td style="white-space:nowrap;">' +
+                '<div style="font-weight:800; color:var(--primary);">' + formatPrice(item.lineRmb) + '</div>' +
+                '<div style="font-size:11px; color:var(--text-light);">¥' + item.lineRmb.toFixed(2) + '</div>' +
+              '</td>' +
+              '<td>' + item.lineCbm.toFixed(3) + ' m³</td>' +
+              '<td>' + kgCell + '</td>' +
+              '<td><button type="button" class="rm" data-crm="' + p.id + '" aria-label="Remove">✕</button></td>' +
+            '</tr>';
+          });
+          tbody.innerHTML = html;
+        }
+        updateCartBadgesAndBar();
+      }
+
+      function buildCsvString() {
+        const totals = computeCartTotals();
+        const headers = t("csvHeaders").slice();
+        headers[11] = headers[11] + " (" + state.curr + ")";
+        headers[13] = headers[13] + " (" + state.curr + ")";
+
+        function escCsv(val) {
+          const s = String(val === null || val === undefined ? "" : val);
+          if (/[",\r\n]/.test(s)) {
+            return '"' + s.replace(/"/g, '""') + '"';
+          }
+          return s;
+        }
+
+        const rows = [headers.map(escCsv).join(",")];
+        totals.lines.forEach(function (item) {
+          const p = item.p;
+          const unitActive = convertFromRmb(p.price, state.curr).toFixed(2);
+          const totActive = convertFromRmb(item.lineRmb, state.curr).toFixed(2);
+          const row = [
+            p.code,
+            getCatName(p.category),
+            getProdName(p),
+            p.en,
+            p.zh,
+            getProdVariant(p),
+            p.winScore,
+            p.winRate,
+            p.winTier,
+            item.cartons,
+            item.pcs,
+            unitActive,
+            p.price.toFixed(2),
+            totActive,
+            item.lineRmb.toFixed(2),
+            item.lineCbm.toFixed(4),
+            item.lineKg !== null ? item.lineKg.toFixed(2) : "",
+            p.box || ""
+          ];
+          rows.push(row.map(escCsv).join(","));
+        });
+
+        // Properly column-aligned TOTAL summary row (18 columns)
+        const totalRow = [
+          "TOTAL",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          totals.totalCartons,
+          totals.totalPcs,
+          "",
+          "",
+          totals.totalActive.toFixed(2),
+          totals.totalRmb.toFixed(2),
+          totals.totalCbm.toFixed(4),
+          totals.totalKg.toFixed(2),
+          ""
+        ];
+        rows.push(totalRow.map(escCsv).join(","));
+
+        return "\uFEFF" + rows.join("\r\n");
+      }
+      window.buildCsvString = buildCsvString;
+
+      function exportCsv() {
+        const totals = computeCartTotals();
+        if (!totals.lines.length) return;
+        const csvContent = buildCsvString();
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Jiayu_2026_Quotation_" + state.curr + "_" + new Date().toISOString().slice(0, 10) + ".csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      // =========================================================================
+      // 6. EXCHANGE RATES MODAL
+      // =========================================================================
+      function updateRatesPreview() {
+        const u = parseDecimalInput(document.getElementById("rateUsd").value, state.rates.rmbPerUsd);
+        const l = parseDecimalInput(document.getElementById("rateLkr").value, state.rates.lkrPerRmb);
+        const sampleUsd = (100 / u).toFixed(2);
+        const sampleLkr = (100 * l).toFixed(2);
+        const usdToLkr = (u * l).toFixed(2);
+        document.getElementById("ratesPreviewBox").innerHTML =
+          '<div><strong>Preview:</strong> ¥100 RMB = <strong>$' + sampleUsd + ' USD</strong> = <strong>රු. ' + sampleLkr + ' LKR</strong></div>' +
+          '<div style="margin-top:4px; color:var(--text-muted);">Implied Cross Rate: 1 USD ($) = රු. ' + usdToLkr + ' LKR</div>';
+      }
+
+      // =========================================================================
+      // 7. EVENT LISTENERS & MOBILE GESTURES (SWIPE + PULL-DOWN BOTTOM SHEET)
+      // =========================================================================
+      function escapeHtml(s) {
+        return String(s || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function bindEvents() {
+        // Language selector
+        const langSel = document.getElementById("lang");
+        langSel.value = state.lang;
+        langSel.addEventListener("change", function () {
+          state.lang = langSel.value;
+          try { localStorage.setItem(STORAGE_KEYS.lang, state.lang); } catch (e) {}
+          applyStaticTranslations();
+          renderCategories();
+          renderCatalogue();
+          updateCartBadgesAndBar();
+          if (document.getElementById("detail").classList.contains("open") && state.activeProdId) {
+            openDetailModal(state.activeProdId);
+          }
+          if (document.getElementById("cart").classList.contains("open")) {
+            renderCartModal();
+          }
+        });
+
+        // Currency selector
+        const currSel = document.getElementById("curr");
+        currSel.value = state.curr;
+        currSel.addEventListener("change", function () {
+          state.curr = currSel.value;
+          try { localStorage.setItem(STORAGE_KEYS.curr, state.curr); } catch (e) {}
+          applyStaticTranslations();
+          renderCatalogue();
+          updateCartBadgesAndBar();
+          if (document.getElementById("detail").classList.contains("open") && state.activeProdId) {
+            openDetailModal(state.activeProdId);
+          }
+          if (document.getElementById("cart").classList.contains("open")) {
+            renderCartModal();
+          }
+        });
+
+        // Search input
+        const qInput = document.getElementById("q");
+        const clearBtn = document.getElementById("clearSearch");
+        qInput.addEventListener("input", function () {
+          state.query = qInput.value;
+          clearBtn.style.display = state.query ? "inline-flex" : "none";
+          renderCatalogue();
+        });
+        clearBtn.addEventListener("click", function () {
+          state.query = "";
+          qInput.value = "";
+          clearBtn.style.display = "none";
+          renderCatalogue();
+        });
+
+        // Price filters
+        document.getElementById("pmin").addEventListener("input", function (e) {
+          state.pmin = e.target.value;
+          renderCatalogue();
+        });
+        document.getElementById("pmax").addEventListener("input", function (e) {
+          state.pmax = e.target.value;
+          renderCatalogue();
+        });
+
+        // Sort
+        document.getElementById("sort").addEventListener("change", function (e) {
+          state.sort = e.target.value;
+          renderCatalogue();
+        });
+
+        // View toggle
+        document.getElementById("viewGrid").addEventListener("click", function () {
+          state.view = "grid";
+          document.getElementById("viewGrid").classList.add("active");
+          document.getElementById("viewTable").classList.remove("active");
+          renderCatalogue();
+        });
+        document.getElementById("viewTable").addEventListener("click", function () {
+          state.view = "table";
+          document.getElementById("viewTable").classList.add("active");
+          document.getElementById("viewGrid").classList.remove("active");
+          renderCatalogue();
+        });
+
+        // Category chips
+        document.getElementById("cats").addEventListener("click", function (e) {
+          const btn = e.target.closest("[data-cat]");
+          if (!btn) return;
+          state.cat = btn.getAttribute("data-cat");
+          renderCategories();
+          renderCatalogue();
+        });
+
+        // Product Grid & Table clicks (Open Detail or Quick Add)
+        function handleCatalogClick(e) {
+          const qaddBtn = e.target.closest("[data-qadd]");
+          if (qaddBtn) {
+            e.stopPropagation();
+            const pid = Number(qaddBtn.getAttribute("data-qadd"));
+            state.cart[pid] = (state.cart[pid] || 0) + 1;
+            saveCart();
+            renderCatalogue();
+            updateCartBadgesAndBar();
+            return;
+          }
+          const openTarget = e.target.closest("[data-open]");
+          if (openTarget) {
+            const pid = Number(openTarget.getAttribute("data-open"));
+            openDetailModal(pid);
+          }
+        }
+        document.getElementById("grid").addEventListener("click", handleCatalogClick);
+        document.getElementById("tableBody").addEventListener("click", handleCatalogClick);
+
+        // Detail Modal Controls
+        document.getElementById("closeDetail").addEventListener("click", function () {
+          document.getElementById("detail").classList.remove("open");
+        });
+        document.getElementById("dPrevProd").addEventListener("click", function () {
+          navigateDetailProduct(-1);
+        });
+        document.getElementById("dNextProd").addEventListener("click", function () {
+          navigateDetailProduct(1);
+        });
+        document.getElementById("dImg").addEventListener("click", function (e) {
+          e.target.classList.toggle("zoomed");
+        });
+        document.getElementById("dPrevImg").addEventListener("click", function () {
+          const p = products.find(function (x) { return x.id === state.activeProdId; });
+          if (!p) return;
+          const imgs = (p.images && p.images.length) ? p.images : [p.imgLarge || p.img];
+          if (imgs.length > 1) {
+            state.activeImgIdx = (state.activeImgIdx - 1 + imgs.length) % imgs.length;
+            renderDetailGallery(p);
+          } else {
+            navigateDetailProduct(-1);
+          }
+        });
+        document.getElementById("dNextImg").addEventListener("click", function () {
+          const p = products.find(function (x) { return x.id === state.activeProdId; });
+          if (!p) return;
+          const imgs = (p.images && p.images.length) ? p.images : [p.imgLarge || p.img];
+          if (imgs.length > 1) {
+            state.activeImgIdx = (state.activeImgIdx + 1) % imgs.length;
+            renderDetailGallery(p);
+          } else {
+            navigateDetailProduct(1);
+          }
+        });
+        document.getElementById("dThumbs").addEventListener("click", function (e) {
+          const btn = e.target.closest("[data-gidx]");
+          if (!btn) return;
+          const p = products.find(function (x) { return x.id === state.activeProdId; });
+          if (!p) return;
+          state.activeImgIdx = Number(btn.getAttribute("data-gidx"));
+          renderDetailGallery(p);
+        });
+
+        // Detail Quantity Steppers (#dQtyMinus, #dQtyPlus, #dQty)
+        const dQtyInput = document.getElementById("dQty");
+        document.getElementById("dQtyMinus").addEventListener("click", function () {
+          const p = products.find(function (x) { return x.id === state.activeProdId; });
+          const v = Math.max(1, (parseInt(dQtyInput.value, 10) || 1) - 1);
+          dQtyInput.value = v;
+          if (p) updateDetailSubtotalPreview(p, v);
+        });
+        document.getElementById("dQtyPlus").addEventListener("click", function () {
+          const p = products.find(function (x) { return x.id === state.activeProdId; });
+          const v = Math.max(1, (parseInt(dQtyInput.value, 10) || 1) + 1);
+          dQtyInput.value = v;
+          if (p) updateDetailSubtotalPreview(p, v);
+        });
+        dQtyInput.addEventListener("input", function () {
+          const p = products.find(function (x) { return x.id === state.activeProdId; });
+          const v = Math.max(1, parseInt(dQtyInput.value, 10) || 1);
+          if (p) updateDetailSubtotalPreview(p, v);
+        });
+        document.getElementById("dAddBtn").addEventListener("click", function () {
+          if (!state.activeProdId) return;
+          const v = Math.max(1, parseInt(dQtyInput.value, 10) || 1);
+          state.cart[state.activeProdId] = v;
+          saveCart();
+          renderCatalogue();
+          updateCartBadgesAndBar();
+          document.getElementById("detail").classList.remove("open");
+        });
+
+        // Left / Right Touch Swipe Product Navigation on #detail
+        // (excluding swipes on #dThumbs, inputs, selects, or buttons)
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let swipeEligible = false;
+        const detailEl = document.getElementById("detail");
+        detailEl.addEventListener("touchstart", function (e) {
+          if (e.target.closest("#dThumbs, input, select, button")) {
+            swipeEligible = false;
+            return;
+          }
+          if (e.touches && e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            swipeEligible = true;
+          }
+        }, { passive: true });
+
+        detailEl.addEventListener("touchend", function (e) {
+          if (!swipeEligible || !e.changedTouches || !e.changedTouches.length) return;
+          const dx = e.changedTouches[0].clientX - touchStartX;
+          const dy = e.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            if (dx < 0) navigateDetailProduct(1);
+            else navigateDetailProduct(-1);
+          }
+          swipeEligible = false;
+        }, { passive: true });
+
+        // Cart Modal Controls
+        function openCart() {
+          renderCartModal();
+          document.getElementById("cart").classList.add("open");
+        }
+        document.getElementById("cartBtn").addEventListener("click", openCart);
+        document.getElementById("mOpenCartBtn").addEventListener("click", openCart);
+        document.getElementById("closeCart").addEventListener("click", function () {
+          document.getElementById("cart").classList.remove("open");
+        });
+
+        document.getElementById("cartBody").addEventListener("click", function (e) {
+          const stepBtn = e.target.closest("[data-cstep]");
+          if (stepBtn) {
+            const pid = Number(stepBtn.getAttribute("data-cid"));
+            const delta = Number(stepBtn.getAttribute("data-cstep"));
+            const nextVal = (state.cart[pid] || 1) + delta;
+            if (nextVal <= 0) delete state.cart[pid];
+            else state.cart[pid] = nextVal;
+            saveCart();
+            renderCartModal();
+            renderCatalogue();
+            return;
+          }
+          const rmBtn = e.target.closest("[data-crm]");
+          if (rmBtn) {
+            const pid = Number(rmBtn.getAttribute("data-crm"));
+            delete state.cart[pid];
+            saveCart();
+            renderCartModal();
+            renderCatalogue();
+          }
+        });
+
+        document.getElementById("cartBody").addEventListener("change", function (e) {
+          const inp = e.target.closest("[data-cinput]");
+          if (!inp) return;
+          const pid = Number(inp.getAttribute("data-cinput"));
+          const val = parseInt(inp.value, 10);
+          if (!val || val <= 0) delete state.cart[pid];
+          else state.cart[pid] = val;
+          saveCart();
+          renderCartModal();
+          renderCatalogue();
+        });
+
+        document.getElementById("clearCartBtn").addEventListener("click", function () {
+          state.cart = {};
+          saveCart();
+          renderCartModal();
+          renderCatalogue();
+        });
+        document.getElementById("printQuoteBtn").addEventListener("click", function () {
+          window.print();
+        });
+        document.getElementById("exportCsvBtn").addEventListener("click", exportCsv);
+
+        // Exchange Rates Modal Controls
+        document.getElementById("ratesBtn").addEventListener("click", function () {
+          document.getElementById("rateUsd").value = state.rates.rmbPerUsd;
+          document.getElementById("rateLkr").value = state.rates.lkrPerRmb;
+          updateRatesPreview();
+          document.getElementById("ratesModal").classList.add("open");
+        });
+        document.getElementById("closeRates").addEventListener("click", function () {
+          document.getElementById("ratesModal").classList.remove("open");
+        });
+        document.getElementById("rateUsd").addEventListener("input", updateRatesPreview);
+        document.getElementById("rateLkr").addEventListener("input", updateRatesPreview);
+        document.getElementById("resetRatesBtn").addEventListener("click", function () {
+          state.rates = { rmbPerUsd: DEFAULT_RATES.rmbPerUsd, lkrPerRmb: DEFAULT_RATES.lkrPerRmb };
+          document.getElementById("rateUsd").value = state.rates.rmbPerUsd;
+          document.getElementById("rateLkr").value = state.rates.lkrPerRmb;
+          try { localStorage.setItem(STORAGE_KEYS.rates, JSON.stringify(state.rates)); } catch (e) {}
+          updateRatesPreview();
+          updateRatesPill();
+          renderCatalogue();
+          updateCartBadgesAndBar();
+        });
+        document.getElementById("saveRatesBtn").addEventListener("click", function () {
+          const u = parseDecimalInput(document.getElementById("rateUsd").value, DEFAULT_RATES.rmbPerUsd);
+          const l = parseDecimalInput(document.getElementById("rateLkr").value, DEFAULT_RATES.lkrPerRmb);
+          state.rates = { rmbPerUsd: u, lkrPerRmb: l };
+          try { localStorage.setItem(STORAGE_KEYS.rates, JSON.stringify(state.rates)); } catch (e) {}
+          updateRatesPill();
+          renderCatalogue();
+          updateCartBadgesAndBar();
+          document.getElementById("ratesModal").classList.remove("open");
+        });
+
+        // Close modals on backdrop click or Escape key
+        ["detail", "cart", "ratesModal"].forEach(function (mid) {
+          const backdrop = document.getElementById(mid);
+          backdrop.addEventListener("click", function (e) {
+            if (e.target === backdrop) backdrop.classList.remove("open");
+          });
+
+          // Pull-down-to-dismiss touch gesture on .sheet-handle / modal-header
+          const sheet = backdrop.querySelector(".modal-sheet");
+          const handle = backdrop.querySelector(".sheet-handle");
+          let pullStartY = null;
+          function onPullStart(e) {
+            if (e.touches && e.touches.length === 1) {
+              pullStartY = e.touches[0].clientY;
+            }
+          }
+          function onPullMove(e) {
+            if (pullStartY === null || !e.touches || !e.touches.length) return;
+            const dy = e.touches[0].clientY - pullStartY;
+            if (dy > 0) {
+              sheet.style.transform = "translateY(" + Math.min(dy, 220) + "px)";
+            }
+          }
+          function onPullEnd(e) {
+            if (pullStartY === null) return;
+            const endY = (e.changedTouches && e.changedTouches.length) ? e.changedTouches[0].clientY : pullStartY;
+            const dy = endY - pullStartY;
+            sheet.style.transform = "";
+            if (dy > 75) {
+              backdrop.classList.remove("open");
+            }
+            pullStartY = null;
+          }
+          if (handle) {
+            handle.addEventListener("touchstart", onPullStart, { passive: true });
+            handle.addEventListener("touchmove", onPullMove, { passive: true });
+            handle.addEventListener("touchend", onPullEnd, { passive: true });
+          }
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            ["detail", "cart", "ratesModal"].forEach(function (mid) {
+              document.getElementById(mid).classList.remove("open");
+            });
+          }
+        });
+      }
+
+      // Initialize application
+      applyStaticTranslations();
+      renderCategories();
+      renderCatalogue();
+      updateCartBadgesAndBar();
+      bindEvents();
+    })();
+  </script>
+</body>
+</html>
